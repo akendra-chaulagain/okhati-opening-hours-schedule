@@ -1,0 +1,34 @@
+
+.tableTitle{
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 0px 30px 0px;
+}
+.tableTitle h2{
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+}
+.tableTitle button{
+    border: none;
+    background-color: black;
+    color: white;
+    padding: 6px 20px;
+}
+.table th{
+    font-weight: 600;
+    font-size: 18px;
+}
+.table td{
+    font-size: 15px;
+}
+
+.action_wrapper button{
+   border: none; 
+   margin: 0px 5px 0px 0px;
+   background-color: black;
+   color: white;
+   padding: 4px 12px;
+   border-radius: 5px;
+}
