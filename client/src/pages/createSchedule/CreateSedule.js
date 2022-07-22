@@ -17,7 +17,6 @@ const CreateSedule = () => {
 
   return (
     <>
-    
       <div className="container mt-5 pt-5 createSchedule">
         <h2>Create Schedule</h2>
         <form>
@@ -26,16 +25,19 @@ const CreateSedule = () => {
             <input
               type="date"
               className="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
               onChange={(e) => setDate(e.target.value)}
               name="date"
+              required
             />
           </div>
           <div className="mb-3 selectOption">
             <label className="form-label">Day</label>
             <br />
-            <select onChange={(e) => setDay(e.target.value)} name="day">
+            <select
+              required
+              onChange={(e) => setDay(e.target.value)}
+              name="day"
+            >
               <option value="Sunday">Sunday</option>
               <option value="Monday">Monday</option>
               <option value="Tuesday">Tuesday</option>
@@ -53,6 +55,7 @@ const CreateSedule = () => {
               type="text"
               className="form-control"
               name="time"
+              required
               placeholder="9:00 am - 4:00 pm"
               onChange={(e) => setTime(e.target.value)}
             />
@@ -68,7 +71,11 @@ const CreateSedule = () => {
             </select>
           </div>
 
-          <button className="btn btn-primary" onClick={handleCreate}>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={handleCreate}
+          >
             Submit
           </button>
         </form>

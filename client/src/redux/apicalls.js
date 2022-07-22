@@ -22,6 +22,7 @@ export const login = async (dispatch, user) => {
     const res = await axios.post("/auth/login", user);
     dispatch(loginSuccess(res.data));
     alert("login success");
+    window.location.replace("/")
   } catch (error) {
     dispatch(loginfailure());
     console.log("login failure" + error);
@@ -32,14 +33,14 @@ export const login = async (dispatch, user) => {
 export const createSchedule = async (dispatch, user) => {
   dispatch(createScheduleStart());
   try {
-    const res = await axios.post("/schedule", user);
+    const res = await axios.post("/schedule/create", user);
     dispatch(createScheduleSuccess(res.data));
     alert("schedule created !");
     window.location.replace("/");
   } catch (error) {
     dispatch(createScheduleFailure());
     console.log("login failure" + error);
-    alert("seoething went wrong !");
+    alert("something went wrong !");
   }
 };
 

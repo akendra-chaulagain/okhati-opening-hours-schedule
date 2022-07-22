@@ -55,7 +55,9 @@ const EditSchedule = () => {
             <label className="form-label">Day</label>
             <br />
             <select
-              defaultValue={getIdData.day}
+              value={getIdData.day}
+              options={getIdData}
+              defaultValue={getIdData[1]}
               onChange={(e) => setDay(e.target.value)}
               name="day"
             >
@@ -86,7 +88,13 @@ const EditSchedule = () => {
           <div className="mb-3 selectOption">
             <label className="form-label">Status</label>
             <br />
-            <select onChange={(e) => setStatus(e.target.value)} name="status">
+            <select
+              value={getIdData.status}
+              options={getIdData}
+              defaultValue={getIdData[1]}
+              onChange={(e) => setStatus(e.target.value)}
+              name="status"
+            >
               <option defaultValue={getIdData.status} value="Opened">
                 Opened
               </option>

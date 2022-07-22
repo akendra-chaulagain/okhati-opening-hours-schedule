@@ -7,33 +7,6 @@ require("../connection/DB");
 // usere schema and models
 const User = require("../models/User");
 
-const registerUser = async (req, res, next) => {
-  const { username, email, password } = req.body;
-  if (!username || !email || !password) {
-    return res.status(500).json("enter all the data ");
-  }
-  try {
-    // if  email already exist in database then this statement will run
-    const userEmail = await User.findOne({ email });
-    if (userEmail) {
-      return res
-        .status(500)
-        .json("Email already exist. Please enter new email");
-    }
-    // if email is new then this will run
-    const user = new User({ username, email, password });
-    // generate salt to hash password
-    const salt = await bcrypt.genSalt(12);
-    // now we set user password to hashed password
-    user.password = await bcrypt.hash(user.password, salt);
-
-    const result = await user.save();
-    return res.status(200).json(result);
-  } catch (error) {
-    next(error);
-  }
-};
-
 // login user
 const loginUser = async (req, res, nest) => {
   const { email, password } = req.body;
@@ -48,7 +21,7 @@ const loginUser = async (req, res, nest) => {
     );
     // saving in cookie
     res.cookie("jsonwebToken", token, {
-      expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 5),
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 10),
       path: "/",
       httpOnly: true,
       sameSite: "lax",
@@ -64,4 +37,4 @@ const loginUser = async (req, res, nest) => {
   }
 };
 
-module.exports = { loginUser, registerUser };
+module.exports = { loginUser };

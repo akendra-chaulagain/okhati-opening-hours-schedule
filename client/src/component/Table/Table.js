@@ -9,6 +9,8 @@ const Table = () => {
   const dispatch = useDispatch();
   const allSchedule = useSelector((state) => state.schedule.schedules);
 
+  const user = useSelector((state) => state.user.currentUser);
+
   // const ak = useSelector();
   useEffect(() => {
     getAllSchedule(dispatch);
@@ -16,7 +18,7 @@ const Table = () => {
 
   // delete
   const handleDelete = (id) => {
-    deleteSchedule(dispatch,id)
+    deleteSchedule(dispatch, id);
   };
 
   return (
@@ -24,9 +26,15 @@ const Table = () => {
       <div className="container">
         <div className="tableTitle">
           <h2>Schedule Table</h2>
-          <Link to="/create-schedule">
-            <button>Create Schedule</button>
-          </Link>
+          {user ? (
+            <>
+              <Link to="/create-schedule">
+                <button>Create Schedule</button>
+              </Link>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
         <hr />
 
@@ -37,7 +45,13 @@ const Table = () => {
               <th scope="col">Day</th>
               <th scope="col">Time</th>
               <th scope="col">Status</th>
-              <th scope="col">Action</th>
+              {user ? (
+                <>
+                  <th scope="col">Action</th>
+                </>
+              ) : (
+                <></>
+              )}
             </tr>
           </thead>
           {allSchedule.map((item, id) => (
@@ -47,14 +61,20 @@ const Table = () => {
                 <td>{item.day}</td>
                 <td>{item.time}</td>
                 <td>{item.status}</td>
-                <td className="action_wrapper">
-                  <Link to={`/edit-schedule/${item._id}`}>
-                    <button>edit</button>
-                  </Link>
-                  <button onClick={() => handleDelete(item._id)}>
-                    delete
-                  </button>
-                </td>
+                {user ? (
+                  <>
+                    <td className="action_wrapper">
+                      <Link to={`/edit-schedule/${item._id}`}>
+                        <button>edit</button>
+                      </Link>
+                      <button onClick={() => handleDelete(item._id)}>
+                        delete
+                      </button>
+                    </td>
+                  </>
+                ) : (
+                  <></>
+                )}
               </tr>
             </tbody>
           ))}
