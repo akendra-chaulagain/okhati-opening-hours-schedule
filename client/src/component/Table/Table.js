@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Table.css";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteSchedule, getAllSchedule } from "../../redux/apicalls";
 
 const Table = () => {
+  // get allproduct using redux from api call
+  const dispatch = useDispatch();
+  const allSchedule = useSelector((state) => state.schedule.schedules);
+
+  // const ak = useSelector();
+  useEffect(() => {
+    getAllSchedule(dispatch);
+  }, [dispatch]);
+
+  // delete
+  const handleDelete = (id) => {
+    deleteSchedule(dispatch,id)
+  };
+
   return (
     <>
       <div className="container">
@@ -24,18 +40,24 @@ const Table = () => {
               <th scope="col">Action</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td className="action_wrapper">
-                <button>edit</button>
-                <button>delete</button>
-              </td>
-            </tr>
-          </tbody>
+          {allSchedule.map((item, id) => (
+            <tbody key={id}>
+              <tr>
+                <th>{item.date}</th>
+                <td>{item.day}</td>
+                <td>{item.time}</td>
+                <td>{item.status}</td>
+                <td className="action_wrapper">
+                  <Link to={`/edit-schedule/${item._id}`}>
+                    <button>edit</button>
+                  </Link>
+                  <button onClick={() => handleDelete(item._id)}>
+                    delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          ))}
         </table>
       </div>
     </>

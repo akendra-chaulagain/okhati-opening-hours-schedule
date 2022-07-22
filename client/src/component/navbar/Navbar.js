@@ -11,7 +11,7 @@ const Navbar = () => {
     <>
       <nav className="navbar navbar-expand-lg bg-light">
         <div className="container">
-          <Link className="navbar-brand" to="/schedule-table">
+          <Link className="navbar-brand" to="/">
             Okhati
           </Link>
           <button
@@ -28,11 +28,7 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link
-                  className="nav-link active"
-                  aria-current="page"
-                  to="/schedule-table"
-                >
+                <Link className="nav-link active" aria-current="page" to="/">
                   Home
                 </Link>
               </li>

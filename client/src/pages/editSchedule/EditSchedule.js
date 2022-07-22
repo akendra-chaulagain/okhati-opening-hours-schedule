@@ -1,25 +1,43 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createSchedule } from "../../redux/apicalls";
-import "./CreateSedule.css";
+import { useLocation } from "react-router-dom";
+import { updateSchedule } from "../../redux/apicalls";
 
-const CreateSedule = () => {
+const EditSchedule = () => {
+  const location = useLocation();
+  const path = location.pathname.split("/")[2];
   const dispatch = useDispatch();
-  const [date, setDate] = useState("");
-  const [day, setDay] = useState("");
-  const [time, setTime] = useState("");
-  const [status, setStatus] = useState("");
+  const [getIdData, setgetIdData] = useState({});
 
-  const handleCreate = (e) => {
+  //get data according to id
+  useEffect(() => {
+    const getDataBYId = async () => {
+      try {
+        const res = await axios.get("/schedule/" + path);
+        setgetIdData(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getDataBYId();
+  }, [path]);
+
+  const [date, setDate] = useState(getIdData.date);
+  const [day, setDay] = useState(getIdData.day);
+  const [time, setTime] = useState(getIdData.time);
+  const [status, setStatus] = useState(getIdData.status);
+
+  // update
+  const handleSubmit = (e) => {
     e.preventDefault();
-    createSchedule(dispatch, { date, day, time, status });
+    updateSchedule(path, dispatch, { date, day, time, status });
   };
 
   return (
     <>
-    
       <div className="container mt-5 pt-5 createSchedule">
-        <h2>Create Schedule</h2>
+        <h2>Edit Schedule</h2>
         <form>
           <div className="mb-3">
             <label className="form-label">Date</label>
@@ -30,12 +48,17 @@ const CreateSedule = () => {
               aria-describedby="emailHelp"
               onChange={(e) => setDate(e.target.value)}
               name="date"
+              defaultValue={getIdData.date}
             />
           </div>
           <div className="mb-3 selectOption">
             <label className="form-label">Day</label>
             <br />
-            <select onChange={(e) => setDay(e.target.value)} name="day">
+            <select
+              defaultValue={getIdData.day}
+              onChange={(e) => setDay(e.target.value)}
+              name="day"
+            >
               <option value="Sunday">Sunday</option>
               <option value="Monday">Monday</option>
               <option value="Tuesday">Tuesday</option>
@@ -55,6 +78,7 @@ const CreateSedule = () => {
               name="time"
               placeholder="9:00 am - 4:00 pm"
               onChange={(e) => setTime(e.target.value)}
+              defaultValue={getIdData.time}
             />
           </div>
 
@@ -63,12 +87,14 @@ const CreateSedule = () => {
             <label className="form-label">Status</label>
             <br />
             <select onChange={(e) => setStatus(e.target.value)} name="status">
-              <option value="Opened">Opened</option>
+              <option defaultValue={getIdData.status} value="Opened">
+                Opened
+              </option>
               <option value="Closed">Closed</option>
             </select>
           </div>
 
-          <button className="btn btn-primary" onClick={handleCreate}>
+          <button className="btn btn-primary" onClick={handleSubmit}>
             Submit
           </button>
         </form>
@@ -77,4 +103,4 @@ const CreateSedule = () => {
   );
 };
 
-export default CreateSedule;
+export default EditSchedule;

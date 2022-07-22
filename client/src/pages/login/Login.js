@@ -1,18 +1,23 @@
 import React from "react";
 import "./Login.css";
-// ReactToastify is use for alert
-// import { ToastContainer } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import LoginTextField from "../../component/loginTextField/LoginTextField";
+import { login } from "../../redux/apicalls";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
+const dispatch = useDispatch()
+
+
   const validate = Yup.object({
     email: Yup.string().email("Invalid email!").required("Email is required!"),
     password: Yup.string().required("Password is required!"),
   });
 
+
+  
   return (
     <>
       <Formik
@@ -22,7 +27,7 @@ const Login = () => {
         }}
         validationSchema={validate}
         onSubmit={(values) => {
-          // loginUser(dispactch, values);
+          login(dispatch, values);
         }}
       >
         <Form>
