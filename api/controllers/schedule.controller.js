@@ -6,14 +6,15 @@ const Schedule = require("../models/Schedule");
 
 // create Schedule
 const createSchedule = async (req, res) => {
-  const day = req.body.day;
-  const date = req.body.date;
-  const time = req.body.time;
-  const status = req.body.status;
-  const weeks = req.body.weeks;
+  // const day = req.body.day;
+  // const date = req.body.date;
+  // const time = req.body.time;
+  // const status = req.body.status;
+  // const weeks = req.body.weeks;
+  const body = req.body;
   // creating new Schedule
   try {
-    const createSchedule =  Schedule({ $push: { weeks } });
+    const createSchedule = Schedule(body);
     const result = await createSchedule.save();
     res.status(200).json(result);
   } catch (err) {

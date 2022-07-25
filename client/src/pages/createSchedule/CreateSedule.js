@@ -12,7 +12,7 @@ const CreateSedule = () => {
 
   const handleCreate = (e) => {
     e.preventDefault();
-    createSchedule(dispatch, { date, day, time, status });
+    createSchedule(dispatch, { weeks: { date, day, time, status } });
   };
 
   return (
