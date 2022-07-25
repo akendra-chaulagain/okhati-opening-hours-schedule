@@ -56,28 +56,7 @@ const Table = () => {
             </tr>
           </thead>
 
-          {/* {allSchedule.map((item, id) => (
-            
-            <tbody key={id}>
-              <tr>
-                <th>{item.weeks.day}</th>
-                {user ? (
-                  <>
-                    <td className="action_wrapper">
-                      <Link to={`/edit-schedule/${item._id}`}>
-                        <button>edit</button>
-                      </Link>
-                      <button onClick={() => handleDelete(item._id)}>
-                        delete
-                      </button>
-                    </td>
-                  </>
-                ) : (
-                  <></>
-                )}
-              </tr>
-            </tbody>
-          ))} */}
+          
 
           {allSchedule.map((item, id) => (
             <tbody key={id}>
